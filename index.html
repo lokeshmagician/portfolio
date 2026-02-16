@@ -1,0 +1,2233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lokesh R - Operations Leader</title>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+        }
+
+        :root {
+            --font-body: 'Manrope', sans-serif;
+            --font-display: 'Space Grotesk', sans-serif;
+
+            --bg-main: #f5f8fc;
+            --bg-soft: #edf3fb;
+            --surface: #ffffff;
+            --surface-soft: #f4f8fd;
+            --text-main: #1f2c3a;
+            --text-strong: #0f1b2a;
+            --text-muted: #546375;
+            --border-soft: #d7e2ef;
+            --nav-bg: rgba(255, 255, 255, 0.82);
+            --accent-primary: #2f6ee5;
+            --accent-secondary: #1fbf9f;
+            --accent-tertiary: #8b5cf6;
+            --accent-glow: rgba(47, 110, 229, 0.22);
+            --shadow-soft: 0 12px 30px rgba(17, 35, 58, 0.1);
+        }
+
+        body {
+            font-family: var(--font-body);
+            line-height: 1.7;
+            color: var(--text-main);
+            background:
+                radial-gradient(circle at 12% 8%, var(--bg-soft) 0%, transparent 32%),
+                radial-gradient(circle at 88% 94%, #eaf3ff 0%, transparent 30%),
+                var(--bg-main);
+            transition: background-color 0.25s ease, color 0.25s ease;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 1.25rem;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #e0e0e0;
+            z-index: 1000;
+            padding: 0.9rem 0;
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .theme-toggle {
+            border: 1px solid #d9e2ec;
+            background: #f8fbff;
+            color: #2c3e50;
+            border-radius: 999px;
+            width: 42px;
+            height: 42px;
+            padding: 0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .theme-toggle ion-icon {
+            font-size: 1.18rem;
+            pointer-events: none;
+        }
+
+        .logo {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #2c3e50;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.6rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #666;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #2c3e50;
+        }
+
+        .nav-links a.active-link {
+            color: #2c3e50;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 8px;
+            width: 42px;
+            height: 42px;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #d5e1ee;
+            border-radius: 999px;
+            background: linear-gradient(145deg, rgba(247, 251, 255, 0.96), rgba(233, 242, 251, 0.92));
+        }
+
+        .mobile-menu-toggle span {
+            width: 21px;
+            height: 2.5px;
+            background: #28435d;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .mobile-menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: min(88vw, 340px);
+            height: 100dvh;
+            background: #ffffff;
+            border-left: none;
+            box-shadow: -24px 0 35px rgba(20, 32, 45, 0.18);
+            transform: translateX(100%);
+            transition: transform 0.28s ease;
+            z-index: 1001;
+            padding: 0.9rem;
+            overflow-y: auto;
+            border-top-left-radius: 24px;
+            border-bottom-left-radius: 24px;
+        }
+
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+
+        .mobile-menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.6rem;
+            padding: 0.2rem 0.2rem 0.65rem;
+            border-bottom: 1px solid #e9eef4;
+        }
+
+        .mobile-menu-header span {
+            font-size: 0.86rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: #3a536d;
+        }
+
+        .mobile-menu-tools {
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
+        }
+
+        .mobile-menu-close {
+            border: 1px solid #d9e2ec;
+            background: #f8fbff;
+            color: #2c3e50;
+            border-radius: 8px;
+            width: 34px;
+            height: 34px;
+            font-size: 1.3rem;
+            line-height: 1;
+            cursor: pointer;
+        }
+
+        .mobile-menu .nav-links {
+            flex-direction: column;
+            gap: 0.45rem;
+        }
+
+        .mobile-menu .nav-links li {
+            border-bottom: none;
+        }
+
+        .mobile-menu .nav-links a {
+            display: block;
+            padding: 0.75rem 0.5rem;
+            color: #2c3e50;
+            font-size: 0.96rem;
+            border: none;
+            border-radius: 10px;
+            background: transparent;
+        }
+
+        .mobile-menu .nav-links a.active-link {
+            background: #edf4fb;
+        }
+
+        .mobile-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(14, 21, 30, 0.48);
+            z-index: 999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .mobile-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 120px 0 72px;
+            min-height: auto;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: clamp(2rem, 6vw, 3rem);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            color: #1a1a1a;
+        }
+
+        .hero-text .subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 2rem;
+            font-weight: 400;
+        }
+
+        .hero-text p {
+            font-size: 1.05rem;
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: #2c3e50;
+            color: white;
+            text-decoration: none;
+            border-radius: 999px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background: #1a252f;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .hero-photo {
+            position: relative;
+            height: 420px;
+            background: #f5f5f5;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 1.1rem;
+            overflow: hidden;
+        }
+
+        .hero-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
+
+        .hero-photo img.loaded {
+            display: block;
+        }
+
+        /* Stats */
+        .stats {
+            padding: 60px 0;
+            background: #f9f9f9;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-item p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 64px 0;
+        }
+
+        .section-title {
+            font-size: clamp(1.8rem, 4.8vw, 2.3rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #1a1a1a;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 4rem;
+            max-width: 600px;
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .about-photo {
+            position: relative;
+            height: 400px;
+            background: #f5f5f5;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            overflow: hidden;
+        }
+
+        .about-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
+
+        .about-photo img.loaded {
+            display: block;
+        }
+
+        .about-text p {
+            font-size: 1.05rem;
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .expertise-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .expertise-item {
+            padding: 1.5rem;
+            background: #f9f9f9;
+            border-radius: 18px;
+        }
+
+        .expertise-item h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+        }
+
+        .expertise-item p {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Experience Section */
+        #experience {
+            background: linear-gradient(180deg, #ffffff 0%, #f7f9fb 100%);
+        }
+
+        .experience-list {
+            position: relative;
+            margin-top: 2.25rem;
+            --timeline-x: 18px;
+            --timeline-gap: 3rem;
+        }
+
+        .experience-list::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 18px;
+            width: 2px;
+            background: #d9e0e8;
+        }
+
+        .experience-item {
+            position: relative;
+            margin-bottom: 1.5rem;
+            margin-left: var(--timeline-gap);
+            padding: 1.4rem 1.35rem;
+            border: 1px solid #edf2f7;
+            border-radius: 22px;
+            background: #ffffff;
+            box-shadow: 0 8px 24px rgba(17, 24, 39, 0.03);
+        }
+
+        .experience-item::before {
+            content: "";
+            position: absolute;
+            left: calc(var(--timeline-x) - var(--timeline-gap));
+            transform: translateX(-50%);
+            top: 1.6rem;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #2c3e50;
+        }
+
+        .experience-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .experience-role-level {
+            display: inline-block;
+            margin-bottom: 0.55rem;
+            padding: 0.25rem 0.6rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: #36536f;
+            background: #edf4fa;
+            border: 1px solid #d4e3f0;
+            border-radius: 999px;
+        }
+
+        .experience-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 0.3rem;
+        }
+
+        .experience-company {
+            font-size: 0.98rem;
+            color: #2c3e50;
+        }
+
+        .experience-date {
+            color: #4b5563;
+            font-size: 0.82rem;
+            font-weight: 600;
+            padding: 0.3rem 0.65rem;
+            background: #f3f6f9;
+            border: 1px solid #dde5ee;
+            border-radius: 999px;
+            white-space: nowrap;
+        }
+
+        .experience-description {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .experience-highlights {
+            margin-top: 0.7rem;
+        }
+
+        .experience-highlights h4 {
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: #36536f;
+            margin-bottom: 0.55rem;
+            margin-top: 1rem;
+        }
+
+        .experience-highlights ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .experience-highlights li {
+            padding-left: 1.5rem;
+            margin-bottom: 0.45rem;
+            position: relative;
+            color: #666;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .experience-highlights li::before {
+            content: "";
+            position: absolute;
+            top: 0.62rem;
+            left: 0.2rem;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #2c3e50;
+        }
+
+        @media (max-width: 768px) {
+            .experience-list {
+                --timeline-x: 12px;
+                --timeline-gap: 2.1rem;
+            }
+
+            .experience-list::before {
+                left: 12px;
+            }
+
+            .experience-item {
+                padding: 1.1rem 1rem;
+                border-radius: 16px;
+            }
+
+            .experience-item::before {
+                top: 1.25rem;
+                width: 10px;
+                height: 10px;
+            }
+
+            .experience-title {
+                font-size: 1.12rem;
+            }
+
+            .experience-company {
+                font-size: 0.92rem;
+            }
+
+            .experience-date {
+                font-size: 0.76rem;
+                padding: 0.26rem 0.55rem;
+            }
+        }
+        /* Education Section */
+        #education {
+            background: #fbfcfd;
+        }
+
+        .education-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1.25rem;
+        }
+
+        .education-card {
+            padding: 1.4rem 1.2rem;
+            background: #ffffff;
+            border-radius: 22px;
+            border: 1px solid #edf2f7;
+            box-shadow: 0 8px 20px rgba(17, 24, 39, 0.03);
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .education-year {
+            align-self: flex-start;
+            font-size: 0.78rem;
+            color: #36536f;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin: 0;
+            padding: 0.3rem 0.55rem;
+            border-radius: 999px;
+            border: 1px solid #d4e3f0;
+            background: #edf4fa;
+        }
+
+        .education-degree {
+            font-size: 1.08rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 0;
+            line-height: 1.4;
+        }
+
+        .education-institute {
+            font-size: 0.92rem;
+            color: #666;
+            margin-bottom: 0;
+            line-height: 1.5;
+        }
+
+        /* Skills Section */
+        #skills {
+            background:
+                radial-gradient(circle at 12% 8%, rgba(74, 145, 255, 0.12) 0%, transparent 36%),
+                radial-gradient(circle at 88% 92%, rgba(46, 201, 174, 0.12) 0%, transparent 34%),
+                linear-gradient(145deg, #f6faff 0%, #eef5ff 54%, #f8fcff 100%);
+        }
+
+        .skills-shell {
+            display: grid;
+            grid-template-columns: minmax(0, 1.55fr) minmax(260px, 1fr);
+            gap: 1.2rem;
+            align-items: start;
+        }
+
+        .skills-board {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .skills-panel {
+            padding: 1.1rem;
+            border-radius: 24px;
+            border: 1px solid #d5e5f8;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.96) 0%, rgba(242, 249, 255, 0.92) 100%);
+            box-shadow: 0 14px 30px rgba(34, 63, 95, 0.1);
+        }
+
+        .skills-kicker {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.09em;
+            text-transform: uppercase;
+            color: #3d6390;
+            margin-bottom: 0.35rem;
+        }
+
+        .skills-panel h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.95rem;
+            color: #1d3552;
+        }
+
+        .skills-cloud {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.7rem;
+        }
+
+        .skill-pill {
+            position: relative;
+            padding: 0.85rem 0.9rem 0.82rem 1rem;
+            border: 1px solid #cfe0f3;
+            border-radius: 16px;
+            background: linear-gradient(145deg, #ffffff 0%, #f1f7ff 100%);
+            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .skill-pill:hover {
+            transform: translateY(-2px);
+            border-color: #aecaeb;
+            box-shadow: 0 10px 20px rgba(39, 69, 105, 0.14);
+        }
+
+        .skill-pill-title {
+            display: block;
+            font-weight: 700;
+            color: #223f5d;
+            margin-bottom: 0.1rem;
+            line-height: 1.35;
+        }
+
+        .skill-pill-sub {
+            display: block;
+            font-size: 0.86rem;
+            color: #5d6f82;
+            line-height: 1.35;
+        }
+
+        .cert-card {
+            padding: 1.2rem;
+            border-radius: 24px;
+            border: 1px solid #365a7d;
+            background:
+                radial-gradient(circle at 85% 12%, rgba(144, 182, 255, 0.18) 0%, transparent 38%),
+                linear-gradient(160deg, #1d334a 0%, #264565 46%, #2b4f71 100%);
+            color: #eaf4ff;
+            box-shadow: 0 20px 38px rgba(17, 34, 54, 0.35);
+        }
+
+        .cert-kicker {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #b9cff0;
+            margin-bottom: 0.45rem;
+        }
+
+        .cert-title {
+            font-size: 1.35rem;
+            color: #f2f8ff;
+            margin-bottom: 0.9rem;
+        }
+
+        .cert-total {
+            display: inline-grid;
+            place-items: center;
+            width: 88px;
+            height: 88px;
+            border-radius: 50%;
+            border: 1px solid rgba(209, 227, 245, 0.48);
+            background: rgba(255, 255, 255, 0.09);
+            margin-bottom: 0.8rem;
+        }
+
+        .cert-total span {
+            font-size: 2rem;
+            line-height: 1;
+            font-weight: 700;
+        }
+
+        .cert-total small {
+            font-size: 0.62rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            opacity: 0.9;
+            margin-top: 0.1rem;
+        }
+
+        .cert-summary {
+            font-size: 0.9rem;
+            line-height: 1.55;
+            color: #d7e8fa;
+            margin-bottom: 0.95rem;
+        }
+
+        .cert-feature {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.5rem;
+            padding: 0;
+            margin: 0;
+        }
+
+        .cert-feature li {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: #eaf5ff;
+            padding: 0.42rem 0.55rem;
+            border-radius: 999px;
+            border: 1px solid rgba(192, 214, 237, 0.48);
+            background: rgba(255, 255, 255, 0.11);
+            text-align: center;
+        }
+
+        /* Gallery Section */
+        #gallery {
+            background:
+                radial-gradient(circle at 15% 20%, #f2f8ff 0%, transparent 40%),
+                radial-gradient(circle at 85% 80%, #eef5fb 0%, transparent 35%),
+                #ffffff;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 0.9rem;
+        }
+
+        .gallery-card {
+            position: relative;
+            display: block;
+            min-height: 180px;
+            border-radius: 22px;
+            overflow: hidden;
+            border: 1px solid #dde8f2;
+            box-shadow: 0 16px 32px rgba(31, 48, 66, 0.08);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            isolation: isolate;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .gallery-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(31, 48, 66, 0.13);
+        }
+
+        .gallery-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(12, 20, 30, 0) 35%, rgba(12, 20, 30, 0.62) 100%);
+            z-index: 1;
+        }
+
+        .gallery-content {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 2;
+            padding: 0.85rem 0.95rem;
+            color: #f1f7ff;
+        }
+
+        .gallery-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .gallery-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+        }
+
+        .gallery-caption {
+            font-size: 0.82rem;
+            opacity: 0.9;
+        }
+
+        .gallery-card--1 {
+            grid-column: span 7;
+            min-height: 280px;
+            background: linear-gradient(135deg, #325578 0%, #4f7ea8 45%, #85a9ca 100%);
+        }
+
+        .gallery-card--2 {
+            grid-column: span 5;
+            min-height: 280px;
+            background: linear-gradient(135deg, #28445f 0%, #416d8f 60%, #7fabc7 100%);
+        }
+
+        .gallery-card--3 {
+            grid-column: span 4;
+            background: linear-gradient(135deg, #2e3f52 0%, #4d657e 55%, #95acc3 100%);
+        }
+
+        .gallery-card--4 {
+            grid-column: span 4;
+            background: linear-gradient(135deg, #254761 0%, #3b6f92 55%, #75a4c1 100%);
+        }
+
+        .gallery-card--5 {
+            grid-column: span 4;
+            background: linear-gradient(135deg, #3b4e66 0%, #5a7490 55%, #a3b7cb 100%);
+        }
+
+        .gallery-card--6 {
+            grid-column: span 12;
+            min-height: 220px;
+            background: linear-gradient(135deg, #1f3b55 0%, #2f5d80 45%, #5b8aac 100%);
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 72px 0;
+            background: #f9f9f9;
+            text-align: center;
+        }
+
+        .contact-content {
+            max-width: 980px;
+            margin: 0 auto;
+        }
+
+        .contact h2 {
+            font-size: clamp(1.8rem, 4.8vw, 2.3rem);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #1a1a1a;
+        }
+
+        .contact p {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 3rem;
+            line-height: 1.8;
+        }
+
+        .contact-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(280px, 1fr));
+            gap: 1rem 1.75rem;
+            margin-top: 0.75rem;
+            align-items: center;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            color: #666;
+            padding: 0.8rem 0.9rem;
+            border-radius: 14px;
+            background: rgba(228, 241, 255, 0.08);
+            border: 1px solid rgba(139, 172, 204, 0.22);
+        }
+
+        .contact-item:last-child {
+            grid-column: 1 / -1;
+            justify-self: center;
+            min-width: min(100%, 420px);
+        }
+
+        .contact-label {
+            min-width: 88px;
+            text-align: left;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            color: #2b5377;
+            padding: 0.28rem 0.58rem;
+            text-transform: uppercase;
+            border-radius: 8px;
+            border: 1px solid #bfd6ea;
+            background: linear-gradient(135deg, #dcebff 0%, #d9f2ec 100%);
+        }
+
+        .contact-value {
+            color: #56616d;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .contact-item a {
+            color: #2c3e50;
+            text-decoration: none;
+        }
+
+        .contact-item a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            padding: 2.5rem 0;
+            text-align: center;
+            background: white;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        footer p {
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 968px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .about-photo {
+                height: 300px;
+            }
+
+            .expertise-list {
+                grid-template-columns: 1fr;
+            }
+
+            .education-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .education-card {
+                padding: 1.1rem 1rem;
+            }
+
+            .skills-shell {
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
+            }
+
+            .skills-cloud {
+                grid-template-columns: 1fr;
+            }
+
+            .skills-panel {
+                padding: 1rem;
+            }
+
+            .cert-feature {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .gallery-card--1,
+            .gallery-card--2,
+            .gallery-card--3,
+            .gallery-card--4,
+            .gallery-card--5,
+            .gallery-card--6 {
+                grid-column: span 6;
+                min-height: 210px;
+            }
+
+            .nav-links {
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            nav {
+                padding: 0.75rem 0;
+            }
+
+            nav .container {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+
+            .logo {
+                font-size: 1.05rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu .nav-links {
+                display: flex;
+            }
+
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            .nav-actions .theme-toggle {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .mobile-overlay {
+                display: block;
+            }
+
+            .hero {
+                padding: 92px 0 44px;
+            }
+
+            .hero-text h1 {
+                font-size: 1.75rem;
+            }
+
+            .hero-photo {
+                height: 280px;
+            }
+
+            #skills .section-subtitle {
+                margin-bottom: 2rem;
+            }
+
+            .skills-panel {
+                border-radius: 18px;
+                padding: 0.9rem;
+            }
+
+            .skill-pill {
+                padding: 0.82rem 0.88rem;
+            }
+
+            .cert-card {
+                border-radius: 18px;
+                padding: 1rem;
+            }
+
+            .cert-feature {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
+            }
+
+            .gallery-card--1,
+            .gallery-card--2,
+            .gallery-card--3,
+            .gallery-card--4,
+            .gallery-card--5,
+            .gallery-card--6 {
+                grid-column: span 1;
+                min-height: 180px;
+                border-radius: 18px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 1.55rem;
+            }
+
+            .contact-buttons {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .contact-info {
+                grid-template-columns: 1fr;
+                gap: 0.85rem;
+            }
+
+            .contact-item:last-child {
+                grid-column: auto;
+                justify-self: stretch;
+                min-width: 0;
+            }
+        }
+
+        html[data-theme="dark"] body {
+            background: #0f1720;
+            color: #d4dee8;
+        }
+
+        html[data-theme="dark"] nav {
+            background: rgba(16, 24, 34, 0.9);
+            border-bottom-color: #233548;
+        }
+
+        html[data-theme="dark"] .logo,
+        html[data-theme="dark"] .section-title,
+        html[data-theme="dark"] .contact h2,
+        html[data-theme="dark"] .experience-title,
+        html[data-theme="dark"] .skill-name,
+        html[data-theme="dark"] .education-degree {
+            color: #f0f6ff;
+        }
+
+        html[data-theme="dark"] .nav-links a,
+        html[data-theme="dark"] .section-subtitle,
+        html[data-theme="dark"] .hero-text p,
+        html[data-theme="dark"] .hero-text .subtitle,
+        html[data-theme="dark"] .about-text p,
+        html[data-theme="dark"] .experience-company,
+        html[data-theme="dark"] .experience-highlights li,
+        html[data-theme="dark"] .education-institute,
+        html[data-theme="dark"] .contact p,
+        html[data-theme="dark"] .contact-value {
+            color: #9fb0c1;
+        }
+
+        html[data-theme="dark"] .nav-links a.active-link {
+            color: #f0f6ff;
+        }
+
+        html[data-theme="dark"] .theme-toggle,
+        html[data-theme="dark"] .mobile-menu-toggle,
+        html[data-theme="dark"] .mobile-menu-close {
+            background: #162433;
+            border-color: #2a4058;
+            color: #d9e7f5;
+        }
+
+        html[data-theme="dark"] .mobile-menu,
+        html[data-theme="dark"] .experience-item,
+        html[data-theme="dark"] .education-card,
+        html[data-theme="dark"] .skills-panel,
+        html[data-theme="dark"] .skill-pill,
+        html[data-theme="dark"] .gallery-card,
+        html[data-theme="dark"] .expertise-item,
+        html[data-theme="dark"] .cert-card {
+            background: #13202d;
+            border-color: #243a50;
+            box-shadow: none;
+        }
+
+        html[data-theme="dark"] .experience-date,
+        html[data-theme="dark"] .experience-role-level,
+        html[data-theme="dark"] .education-year,
+        html[data-theme="dark"] .contact-label {
+            background: #1a2d40;
+            border-color: #2c4761;
+            color: #b7cbe0;
+        }
+
+        html[data-theme="dark"] #experience,
+        html[data-theme="dark"] #education,
+        html[data-theme="dark"] #skills,
+        html[data-theme="dark"] #gallery,
+        html[data-theme="dark"] .contact,
+        html[data-theme="dark"] .stats {
+            background: #0f1720;
+        }
+
+        html[data-theme="dark"] .cert-card {
+            background: linear-gradient(160deg, #1a2b3d 0%, #22384f 55%, #2d4763 100%);
+            border-color: #31506d;
+        }
+
+        html[data-theme="dark"] .cert-feature li {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(183, 207, 232, 0.28);
+        }
+
+        html[data-theme="dark"] .mobile-overlay {
+            background: rgba(0, 0, 0, 0.62);
+        }
+
+        html[data-theme="dark"] footer {
+            background: #0f1720;
+            border-top-color: #223446;
+        }
+
+        /* Visual Polish Layer */
+        .logo,
+        h1, h2, h3,
+        .section-title,
+        .hero-text h1 {
+            font-family: var(--font-display);
+            letter-spacing: -0.02em;
+        }
+
+        nav {
+            background: var(--nav-bg);
+            border-bottom-color: var(--border-soft);
+            box-shadow: 0 8px 24px rgba(24, 43, 64, 0.08);
+        }
+
+        .logo {
+            color: var(--text-strong);
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active-link {
+            color: var(--accent-primary);
+        }
+
+        .theme-toggle {
+            background: linear-gradient(135deg, #f9fbff 0%, #e9f3ff 100%);
+            border-color: #c9dbf1;
+            color: #264564;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75);
+        }
+
+        .hero-text h1 {
+            color: var(--text-strong);
+            text-wrap: balance;
+        }
+
+        .hero-text .subtitle {
+            color: #3f5f80;
+            font-weight: 600;
+        }
+
+        .hero-text p,
+        .section-subtitle {
+            color: var(--text-muted);
+        }
+
+        .section-title {
+            color: var(--text-strong);
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, var(--accent-primary) 0%, #3156da 52%, var(--accent-tertiary) 100%);
+            color: #f7fbff;
+            box-shadow: 0 12px 26px var(--accent-glow);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .cta-button:hover {
+            background: linear-gradient(135deg, #275bd0 0%, #2c4ec7 52%, #7b4be0 100%);
+            box-shadow: 0 14px 30px rgba(43, 85, 189, 0.34);
+        }
+
+        .hero-photo,
+        .about-photo {
+            background: linear-gradient(145deg, #eef4fb 0%, #dae8f8 100%);
+            border: 1px solid #d6e2f1;
+        }
+
+        .experience-item,
+        .education-card,
+        .skills-panel,
+        .skill-pill,
+        .expertise-item {
+            background: var(--surface);
+            border-color: var(--border-soft);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .experience-role-level,
+        .education-year,
+        .contact-label {
+            background: linear-gradient(135deg, #eaf3ff 0%, #def2ed 100%);
+            border-color: #c7deee;
+            color: #2f5676;
+        }
+
+        .stat-item h3 {
+            background: linear-gradient(135deg, var(--accent-primary) 0%, #2fa5d9 45%, var(--accent-secondary) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-fill-color: transparent;
+        }
+
+        .gallery-card {
+            border-color: #c8dbec;
+            box-shadow: 0 18px 34px rgba(20, 38, 58, 0.14);
+        }
+
+        .cert-card {
+            border-color: #30506f;
+            box-shadow: 0 22px 42px rgba(17, 32, 47, 0.33);
+        }
+
+        .cert-feature li {
+            color: #f0f8ff;
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(206, 224, 245, 0.52);
+        }
+
+        html[data-theme="dark"] {
+            --bg-main: #0b1220;
+            --bg-soft: #16263d;
+            --surface: #131f33;
+            --surface-soft: #1a2b44;
+            --text-main: #d7e5f5;
+            --text-strong: #f5fbff;
+            --text-muted: #a9bed4;
+            --border-soft: #2f4764;
+            --nav-bg: rgba(10, 20, 34, 0.86);
+            --accent-primary: #69b7ff;
+            --accent-secondary: #45d5b6;
+            --accent-tertiary: #8f86ff;
+            --accent-glow: rgba(105, 183, 255, 0.32);
+            --shadow-soft: 0 14px 30px rgba(3, 9, 19, 0.52);
+        }
+
+        html[data-theme="dark"] body {
+            background:
+                radial-gradient(circle at 14% 10%, #1a2f4e 0%, transparent 34%),
+                radial-gradient(circle at 88% 88%, #173247 0%, transparent 32%),
+                var(--bg-main);
+            color: var(--text-main);
+        }
+
+        html[data-theme="dark"] .hero-text h1,
+        html[data-theme="dark"] .section-title,
+        html[data-theme="dark"] .logo,
+        html[data-theme="dark"] .contact h2,
+        html[data-theme="dark"] .gallery-title,
+        html[data-theme="dark"] .skill-name,
+        html[data-theme="dark"] .experience-title,
+        html[data-theme="dark"] .education-degree {
+            color: var(--text-strong);
+        }
+
+        html[data-theme="dark"] .hero-text .subtitle,
+        html[data-theme="dark"] .hero-text p,
+        html[data-theme="dark"] .section-subtitle,
+        html[data-theme="dark"] .experience-company,
+        html[data-theme="dark"] .experience-highlights li,
+        html[data-theme="dark"] .education-institute,
+        html[data-theme="dark"] .contact-value,
+        html[data-theme="dark"] .contact p,
+        html[data-theme="dark"] .gallery-caption {
+            color: var(--text-muted);
+        }
+
+        html[data-theme="dark"] .nav-links a {
+            color: #c6d8ec;
+        }
+
+        html[data-theme="dark"] .nav-links a:hover,
+        html[data-theme="dark"] .nav-links a.active-link {
+            color: #86cbff;
+        }
+
+        html[data-theme="dark"] nav {
+            background: var(--nav-bg);
+            border-bottom-color: #35506f;
+            box-shadow: 0 12px 26px rgba(4, 10, 20, 0.5);
+        }
+
+        html[data-theme="dark"] .theme-toggle,
+        html[data-theme="dark"] .mobile-menu-toggle,
+        html[data-theme="dark"] .mobile-menu-close {
+            background: linear-gradient(135deg, #243a58 0%, #2f4b70 100%);
+            border-color: #7ea8d5;
+            color: #f2f9ff;
+        }
+
+        html[data-theme="dark"] .mobile-menu-toggle {
+            box-shadow: 0 0 0 2px rgba(147, 194, 244, 0.28), 0 10px 22px rgba(2, 8, 16, 0.55);
+        }
+
+        html[data-theme="dark"] .mobile-menu-toggle span {
+            background: #f7fbff;
+            box-shadow: 0 0 8px rgba(183, 219, 255, 0.44);
+        }
+
+        html[data-theme="dark"] .experience-item,
+        html[data-theme="dark"] .education-card,
+        html[data-theme="dark"] .skills-panel,
+        html[data-theme="dark"] .skill-pill,
+        html[data-theme="dark"] .expertise-item,
+        html[data-theme="dark"] .mobile-menu,
+        html[data-theme="dark"] .gallery-card {
+            background: linear-gradient(150deg, #15263d 0%, #1c2f4c 55%, #23385a 100%);
+            border-color: #3c5a7d;
+            box-shadow: var(--shadow-soft);
+        }
+
+        html[data-theme="dark"] .cert-card {
+            background:
+                radial-gradient(circle at 86% 10%, rgba(159, 189, 255, 0.22) 0%, transparent 38%),
+                linear-gradient(155deg, #1d2b46 0%, #233960 56%, #2d4a78 100%);
+            border-color: #4b6e99;
+            box-shadow: 0 22px 44px rgba(2, 8, 16, 0.56);
+        }
+
+        html[data-theme="dark"] .cert-feature li {
+            color: #ecf5ff;
+            background: rgba(129, 174, 224, 0.18);
+            border-color: rgba(157, 196, 238, 0.42);
+        }
+
+        html[data-theme="dark"] .expertise-item h4,
+        html[data-theme="dark"] .skill-pill-title {
+            color: #e6f1ff;
+        }
+
+        html[data-theme="dark"] .skill-pill-sub {
+            color: #aec4db;
+        }
+
+        html[data-theme="dark"] .experience-role-level,
+        html[data-theme="dark"] .education-year,
+        html[data-theme="dark"] .contact-label,
+        html[data-theme="dark"] .experience-date {
+            background: linear-gradient(135deg, #27527e 0%, #2e6b8a 100%);
+            border-color: #5f8fba;
+            color: #ebf5ff;
+        }
+
+        html[data-theme="dark"] .hero-photo,
+        html[data-theme="dark"] .about-photo {
+            background: linear-gradient(145deg, #203249 0%, #2a4363 100%);
+            border-color: #4f7095;
+            color: #b7cde2;
+        }
+
+        html[data-theme="dark"] #experience,
+        html[data-theme="dark"] #education,
+        html[data-theme="dark"] #skills,
+        html[data-theme="dark"] #gallery,
+        html[data-theme="dark"] .contact,
+        html[data-theme="dark"] .stats,
+        html[data-theme="dark"] footer {
+            background: transparent;
+        }
+
+        html[data-theme="dark"] .mobile-overlay {
+            background: rgba(2, 8, 15, 0.78);
+        }
+
+        html[data-theme="dark"] .mobile-menu-header {
+            border-bottom-color: #375373;
+        }
+
+        html[data-theme="dark"] .mobile-menu-header span {
+            color: #b8cde3;
+        }
+
+        html[data-theme="dark"] .mobile-menu .nav-links a {
+            color: #d4e4f5;
+        }
+
+        html[data-theme="dark"] .mobile-menu .nav-links a.active-link {
+            background: rgba(116, 171, 233, 0.2);
+            color: #f2f8ff;
+        }
+
+        html[data-theme="dark"] .gallery-card::before {
+            background: linear-gradient(180deg, rgba(5, 10, 18, 0.08) 30%, rgba(5, 10, 18, 0.8) 100%);
+        }
+
+        html[data-theme="dark"] .gallery-content {
+            color: #f4f8ff;
+        }
+
+        html[data-theme="dark"] .cta-button {
+            background: linear-gradient(135deg, #3f86f4 0%, #4b73f1 52%, #7167f0 100%);
+            border-color: rgba(188, 211, 255, 0.5);
+            box-shadow: 0 14px 30px rgba(89, 141, 255, 0.34);
+        }
+
+        html[data-theme="dark"] .cta-button:hover {
+            background: linear-gradient(135deg, #5294f7 0%, #5a7ff2 52%, #8075f4 100%);
+            box-shadow: 0 18px 34px rgba(104, 157, 255, 0.42);
+        }
+
+        html[data-theme="dark"] .experience-list::before {
+            background: linear-gradient(180deg, #8cc1ff 0%, #60e1c5 100%);
+        }
+
+        html[data-theme="dark"] .experience-item::before {
+            background: #b3d6ff;
+            box-shadow: 0 0 0 6px rgba(179, 214, 255, 0.2);
+        }
+
+        html[data-theme="dark"] .skills-panel h3 {
+            color: #daebff;
+        }
+
+        html[data-theme="dark"] .skills-kicker {
+            color: #98b9df;
+        }
+
+        html[data-theme="dark"] .experience-highlights h4 {
+            color: #b0d4f6;
+        }
+
+        html[data-theme="dark"] .experience-highlights li::before {
+            background: #a8d2ff;
+        }
+
+        html[data-theme="dark"] .contact-label {
+            color: #eff7ff;
+            border-color: #71a3cf;
+            background: linear-gradient(135deg, #35689a 0%, #2c7d7b 100%);
+        }
+
+        html[data-theme="dark"] .contact-item {
+            background: rgba(45, 75, 112, 0.24);
+            border-color: rgba(110, 161, 207, 0.4);
+        }
+
+        html[data-theme="dark"] .contact-value {
+            color: #dbe9f7;
+        }
+
+        html[data-theme="dark"] .contact-item a {
+            color: #e3efff;
+        }
+
+        html[data-theme="dark"] .contact-item a:hover {
+            color: #9ccfff;
+        }
+
+        html:not([data-theme="dark"]) .skills-panel,
+        html:not([data-theme="dark"]) .cert-card,
+        html:not([data-theme="dark"]) .experience-item,
+        html:not([data-theme="dark"]) .about-content {
+            box-shadow: 0 10px 24px rgba(47, 110, 229, 0.12), 0 0 0 1px rgba(31, 191, 159, 0.06);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="logo">Lokesh R</div>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button type="button" class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <ion-icon name="moon-outline" aria-hidden="true"></ion-icon>
+                </button>
+                <div class="mobile-menu-toggle" id="mobileMenuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-header">
+            <span></span>
+            <div class="mobile-menu-tools">
+                <button type="button" class="theme-toggle" id="themeToggleMobile" aria-label="Toggle theme">
+                    <ion-icon name="moon-outline" aria-hidden="true"></ion-icon>
+                </button>
+                <button type="button" class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">&times;</button>
+            </div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Strategic Operations Leader</h1>
+                    <p class="subtitle">Chief Operating Officer | Operations Manager</p>
+                    <p>Driving organizational excellence through strategic operations management, institutional partnerships, and execution-focused leadership across education and social impact sectors.</p>
+                    <a href="#contact" class="cta-button">Get in Touch</a>
+                </div>
+                <div class="hero-photo">
+                    <!-- Replace src with your photo path -->
+                    <img src="src/oprof.png" alt="Lokesh R" id="heroImage">
+                    <span id="heroPlaceholder">Add Your Photo</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h3>10+</h3>
+                    <p>Institutional Partnerships</p>
+                </div>
+                <div class="stat-item">
+                    <h3>500+</h3>
+                    <p>Event Participants</p>
+                </div>
+                <div class="stat-item">
+                    <h3>25+</h3>
+                    <p>Sessions Delivered</p>
+                </div>
+                <div class="stat-item">
+                    <h3>120+</h3>
+                    <p>Beneficiaries Impacted</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <p class="section-subtitle">A results-driven operations leader with expertise in strategic management, partnerships, and organizational excellence.</p>
+            
+            <div class="about-content">
+                <div class="about-photo">
+                    <!-- Replace src with your photo path -->
+                    <img src="src/profile.jpeg" alt="About Lokesh" id="aboutImage">
+                    <span id="aboutPlaceholder">Add Your Photo</span>
+                </div>
+                <div class="about-text">
+                    <p>As Chief Operating Officer at Dr. Hodophile Foundation, I lead foundation-wide operations with a focus on strategic execution, institutional partnerships, and organizational growth. With a strong foundation in commerce and finance, I bring analytical rigor to operational planning.</p>
+                    
+                    <p>My journey spans from intern to COO, demonstrating rapid professional growth through consistent delivery, strategic thinking, and leadership excellence. I specialize in building institutional partnerships, managing complex events, coordinating cross-functional teams, and driving operational efficiency.</p>
+                    
+                    <div class="expertise-list">
+                        <div class="expertise-item">
+                            <h4>Operations Management</h4>
+                            <p>Strategic planning, execution, budgeting, and financial reporting</p>
+                        </div>
+                        <div class="expertise-item">
+                            <h4>Partnerships & MoUs</h4>
+                            <p>Building collaborations across 7+ colleges</p>
+                        </div>
+                        <div class="expertise-item">
+                            <h4>Event Management</h4>
+                            <p>Executing events with 500+ participants</p>
+                        </div>
+                        <div class="expertise-item">
+                            <h4>Team Leadership</h4>
+                            <p>Managing teams, interns, and volunteers</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience">
+        <div class="container">
+            <h2 class="section-title">Experience</h2>
+            <p class="section-subtitle">Progressive growth from intern to chief operating officer in 2 years.</p>
+
+            <div class="experience-list">
+                <!-- COO -->
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <div>
+                            <span class="experience-role-level">Executive Leadership</span>
+                            <h3 class="experience-title">Chief Operating Officer</h3>
+                            <p class="experience-company">Dr. Hodophile Foundation, Kerala</p>
+                        </div>
+                        <span class="experience-date">Jan 2025 - Present</span>
+                    </div>
+                    <div class="experience-highlights">
+                        <h4>Strategy & Operations</h4>
+                        <ul>
+                            <li>Led foundation-wide operations across key focus areas, driving execution and internal coordination</li>
+                            <li>Managed budgeting support, documentation workflows, and operational planning for programs</li>
+                            <li>Maintained financial reporting records including Receipts & Payments, P&L and Balance Sheet</li>
+                        </ul>
+                        <h4>Branding & Outreach</h4>
+                        <ul>
+                            <li>Designed brochures, posters and promotional creatives for institutional onboarding</li>
+                            <li>Managed the Foundation's digital presence through Instagram communication</li>
+                        </ul>
+                        <h4>Partnerships & MoUs</h4>
+                        <ul>
+                            <li>Built institutional partnerships through 10+ MoU's with 7+ colleges across Kerala & Tamil Nadu</li>
+                            <li>Supported delivery of 25+ institutional sessions and implemented NEP-aligned programs</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Operations Manager -->
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <div>
+                            <span class="experience-role-level">Operations Management</span>
+                            <h3 class="experience-title">Operations Manager</h3>
+                            <p class="experience-company">Dr. Hodophile Foundation, Kerala</p>
+                        </div>
+                        <span class="experience-date">Jul 2023 - Dec 2024</span>
+                    </div>
+                    <div class="experience-highlights">
+                        <h4>Program Execution</h4>
+                        <ul>
+                            <li>Coordinated program delivery across partner institutions, ensuring smooth session execution</li>
+                            <li>Assisted scheduling and execution for learning modules and workshops</li>
+                            <li>Supported education and welfare initiatives reaching 120+ beneficiaries</li>
+                        </ul>
+                        <h4>Team Coordination</h4>
+                        <ul>
+                            <li>Supervised 16 interns and coordinated 50+ volunteers for initiatives and events</li>
+                            <li>Coordinated a teaching pool of 30+ part-time faculty resources</li>
+                            <li>Managed task allocation, follow-ups, and timely closure of activities</li>
+                        </ul>
+                        <h4>Event Management</h4>
+                        <ul>
+                            <li>Executed a flagship recognition event with 500+ participants</li>
+                            <li>Coordinated 5 teams (awards, food, cultural, anchoring, logistics) for end-to-end execution</li>
+                            <li>Managed catering for 500 attendees and award distribution for 30 dignitaries</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Internship -->
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <div>
+                            <span class="experience-role-level">Early Career</span>
+                            <h3 class="experience-title">Digital Outreach & Program Support Intern</h3>
+                            <p class="experience-company">Dr. Hodophile Foundation, Kerala</p>
+                        </div>
+                        <span class="experience-date">Jan 2023 - Jun 2023</span>
+                    </div>
+                    <div class="experience-highlights">
+                        <ul>
+                            <li>Supported social media posting and content coordination for NGO initiatives</li>
+                            <li>Assisted in improving visibility for education and community programs</li>
+                            <li>Designed promotional materials (posters/brochures) for outreach</li>
+                            <li>Supported execution of sessions, events and internal program coordination</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Education Section -->
+    <section id="education">
+        <div class="container">
+            <h2 class="section-title">Education</h2>
+            <p class="section-subtitle">Strong academic foundation in commerce and finance.</p>
+            
+            <div class="education-grid">
+                <div class="education-card">
+                    <p class="education-year">2019 - 2022</p>
+                    <h3 class="education-degree">Bachelor of Commerce (Finance)</h3>
+                    <p class="education-institute">Bharathamatha College of Arts and Science</p>
+                </div>
+                <div class="education-card">
+                    <p class="education-year">2019</p>
+                    <h3 class="education-degree">Higher Secondary Education (Commerce)</h3>
+                    <p class="education-institute">Vijayamatha Convent Higher Secondary School</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+        <div class="container">
+            <h2 class="section-title">Skills & Expertise</h2>
+            <p class="section-subtitle">A focused mix of operational leadership, partnership execution, and practical business skills.</p>
+
+            <div class="skills-shell">
+                <div class="skills-board">
+                    <article class="skills-panel">
+                        <p class="skills-kicker">Primary Strengths</p>
+                        <h3>Core Competencies</h3>
+                        <div class="skills-cloud">
+                            <div class="skill-pill">
+                                <span class="skill-pill-title">Operations Management</span>
+                                <span class="skill-pill-sub">Strategic planning and execution</span>
+                            </div>
+                            <div class="skill-pill">
+                                <span class="skill-pill-title">Partnership Development</span>
+                                <span class="skill-pill-sub">MoU negotiation and relationships</span>
+                            </div>
+                            <div class="skill-pill">
+                                <span class="skill-pill-title">Event Management</span>
+                                <span class="skill-pill-sub">Large-scale execution</span>
+                            </div>
+                            <div class="skill-pill">
+                                <span class="skill-pill-title">Financial Reporting</span>
+                                <span class="skill-pill-sub">P&L and balance sheets</span>
+                            </div>
+                            <div class="skill-pill">
+                                <span class="skill-pill-title">Team Leadership</span>
+                                <span class="skill-pill-sub">Managing teams and volunteers</span>
+                            </div>
+                            <div class="skill-pill">
+                                <span class="skill-pill-title">Digital Marketing</span>
+                                <span class="skill-pill-sub">Social media and content</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="skills-panel">
+                        <p class="skills-kicker">Supporting Skills</p>
+                        <h3>Additional Expertise</h3>
+                        <div class="skills-cloud">
+                            <div class="skill-pill">
+                                <span class="skill-pill-title">Microsoft Excel</span>
+                                <span class="skill-pill-sub">Data analysis and reporting</span>
+                            </div>
+                            <div class="skill-pill">
+                                <span class="skill-pill-title">Financial Markets</span>
+                                <span class="skill-pill-sub">Equity tracking</span>
+                            </div>
+                            <div class="skill-pill">
+                                <span class="skill-pill-title">Public Speaking</span>
+                                <span class="skill-pill-sub">Presentation and facilitation</span>
+                            </div>
+                            <div class="skill-pill">
+                                <span class="skill-pill-title">Design & Creatives</span>
+                                <span class="skill-pill-sub">Brochures and video editing</span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <aside class="cert-card">
+                    <p class="cert-kicker">Certifications</p>
+                    <h3 class="cert-title">Professional Learning</h3>
+                    <div class="cert-total">
+                        <span>8</span>
+                    </div>
+                    <p class="cert-summary">Structured upskilling across management, finance, communication, leadership, and digital execution.</p>
+                    <ul class="cert-feature">
+                        <li>Financial Markets</li>
+                        <li>Digital Marketing</li>
+                        <li>Microsoft Excel</li>
+                        <li>Entrepreneurship</li>
+                        <li>Leadership</li>
+                        <li>Customer Service</li>
+                        <li>Public Speaking</li>
+                        <li>Program Execution</li>
+                    </ul>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery">
+        <div class="container">
+            <h2 class="section-title">Gallery</h2>
+            <p class="section-subtitle">A quick visual snapshot of leadership, programs, events, and team collaboration.</p>
+
+            <div class="gallery-grid">
+                <a class="gallery-card gallery-card--1" href="src/prof2.png" target="_blank" rel="noopener">
+                    <img class="gallery-image" src="src/prof2.png" alt="Leadership in Action">
+                    <div class="gallery-content">
+                        <h3 class="gallery-title">Leadership in Action</h3>
+                        <p class="gallery-caption">Driving operations and cross-functional coordination</p>
+                    </div>
+                </a>
+                <a class="gallery-card gallery-card--2" href="src/inst.png" target="_blank" rel="noopener">
+                    <img class="gallery-image" src="src/inst.png" alt="Institutional Sessions">
+                    <div class="gallery-content">
+                        <h3 class="gallery-title">Institutional Sessions</h3>
+                        <p class="gallery-caption">Engaging students and partners through structured programs</p>
+                    </div>
+                </a>
+                <a class="gallery-card gallery-card--3" href="src/strm.png" target="_blank" rel="noopener">
+                    <img class="gallery-image" src="src/strm.png" alt="Strategic Meetings">
+                    <div class="gallery-content">
+                        <h3 class="gallery-title">Meetings</h3>
+                        <p class="gallery-caption">Encouraging Entrepreneurship in Students</p>
+                    </div>
+                </a>
+                <a class="gallery-card gallery-card--4" href="src/evnt.png" target="_blank" rel="noopener">
+                    <img class="gallery-image" src="src/evnt.png" alt="Event Execution">
+                    <div class="gallery-content">
+                        <h3 class="gallery-title">Event Execution</h3>
+                        <p class="gallery-caption">From concept to smooth delivery</p>
+                    </div>
+                </a>
+                <a class="gallery-card gallery-card--5" href="src/cmn.png" target="_blank" rel="noopener">
+                    <img class="gallery-image" src="src/cmn.png" alt="Community Outreach">
+                    <div class="gallery-content">
+                        <h3 class="gallery-title">Community Outreach</h3>
+                        <p class="gallery-caption">Programs focused on measurable impact</p>
+                    </div>
+                </a>
+                <a class="gallery-card gallery-card--6" href="src/gallery/gallery-6.jpg" target="_blank" rel="noopener">
+                    <img class="gallery-image" src="src/team.png" alt="Team and Culture">
+                    <div class="gallery-content">
+                        <h3 class="gallery-title">Team & Culture</h3>
+                        <p class="gallery-caption">Building high-trust teams for consistent results</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="contact-content">
+                <h2>Let's Connect</h2>
+                <p>Open to opportunities in operations management, strategic planning, and leadership roles. Let's discuss how I can add value to your organization.</p>
+                
+                <div class="contact-buttons">
+                    <a href="mailto:lokeshr0108@gmail.com" class="cta-button">Send Email</a>
+                    <a href="tel:+917909115356" class="cta-button">Call Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Lokesh R. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+        const mobileMenuClose = document.getElementById('mobileMenuClose');
+        const mobileMenuLinks = document.querySelectorAll('.mobile-menu .nav-links a');
+        const themeToggle = document.getElementById('themeToggle');
+        const themeToggleMobile = document.getElementById('themeToggleMobile');
+
+        function applyTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            if (themeToggle) {
+                const icon = themeToggle.querySelector('ion-icon');
+                if (icon) {
+                    icon.setAttribute('name', theme === 'dark' ? 'sunny-outline' : 'moon-outline');
+                }
+            }
+            if (themeToggleMobile) {
+                const icon = themeToggleMobile.querySelector('ion-icon');
+                if (icon) {
+                    icon.setAttribute('name', theme === 'dark' ? 'sunny-outline' : 'moon-outline');
+                }
+            }
+        }
+
+        const storedTheme = localStorage.getItem('theme');
+        const preferredTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        applyTheme(storedTheme || preferredTheme);
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme') || 'light';
+            const next = current === 'dark' ? 'light' : 'dark';
+            applyTheme(next);
+            localStorage.setItem('theme', next);
+        }
+
+        function toggleMobileMenu() {
+            mobileMenuToggle.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            mobileOverlay.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        }
+
+        function closeMobileMenu() {
+            mobileMenuToggle.classList.remove('active');
+            mobileMenu.classList.remove('active');
+            mobileOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        if (mobileMenuToggle) {
+            mobileMenuToggle.addEventListener('click', toggleMobileMenu);
+        }
+        
+        if (mobileOverlay) {
+            mobileOverlay.addEventListener('click', closeMobileMenu);
+        }
+
+        if (mobileMenuClose) {
+            mobileMenuClose.addEventListener('click', closeMobileMenu);
+        }
+
+        if (themeToggle) {
+            themeToggle.addEventListener('click', toggleTheme);
+        }
+
+        if (themeToggleMobile) {
+            themeToggleMobile.addEventListener('click', toggleTheme);
+        }
+
+        // Close mobile menu when clicking a link
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (mobileMenu.classList.contains('active')) {
+                    closeMobileMenu();
+                }
+            });
+        });
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 640 && mobileMenu.classList.contains('active')) {
+                closeMobileMenu();
+            }
+        });
+
+        // Image loading - shows placeholder until image is loaded
+        function setupImage(imageId, placeholderId) {
+            const img = document.getElementById(imageId);
+            const placeholder = document.getElementById(placeholderId);
+            
+            if (img && placeholder) {
+                function showImage() {
+                    img.classList.add('loaded');
+                    placeholder.style.display = 'none';
+                }
+
+                img.addEventListener('load', showImage);
+
+                // Check if image exists
+                img.addEventListener('error', function() {
+                    placeholder.textContent = 'Add Your Photo Here';
+                });
+
+                // Handle cached/already-loaded images
+                if (img.complete && img.naturalWidth > 0) {
+                    showImage();
+                }
+            }
+        }
+
+        setupImage('heroImage', 'heroPlaceholder');
+        setupImage('aboutImage', 'aboutPlaceholder');
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const navHeight = document.querySelector('nav').offsetHeight;
+                    const targetPosition = target.offsetTop - navHeight;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Active nav link
+        window.addEventListener('scroll', () => {
+            let current = '';
+            const sections = document.querySelectorAll('section[id]');
+            const navHeight = document.querySelector('nav').offsetHeight;
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - navHeight - 100;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active-link');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active-link');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
